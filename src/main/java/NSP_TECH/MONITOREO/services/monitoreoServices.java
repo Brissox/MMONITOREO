@@ -19,12 +19,16 @@ public class monitoreoServices {
     public List<monitoreo> BuscarTodoMonitoreo(){
         return monitoreorepository.findAll();
     }
-    public monitoreo BuscarUnMonitoreo(Long id_soporte){
-        return monitoreorepository.findById(id_soporte).get();
+    public monitoreo BuscarUnMonitoreo(Long id_monitoreo){
+        return monitoreorepository.findById(id_monitoreo).get();
     }
     public monitoreo GuardarMonitoreo(monitoreo monitoreo){
         return monitoreorepository.save(monitoreo);
 
+    }
+
+    public void EliminarMonitoreo(Long id_monitoreo){
+        monitoreorepository.deleteById(id_monitoreo);
     }
 
 }

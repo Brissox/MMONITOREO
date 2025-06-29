@@ -1,18 +1,20 @@
 package NSP_TECH.MONITOREO.Service;
 
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
-
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 import NSP_TECH.MONITOREO.model.monitoreo;
@@ -107,17 +109,39 @@ public class monitoreoServiceTest {
     }
 
 
-/*
+    @Test
+    public void testEditarMonitoreo(){
+
+        monitoreo monitoreoO = new monitoreo();
+        monitoreoO.setId_monitoreo(11L);
+        monitoreoO.setNivel_alerta("Medio");
+        monitoreoO.setMensaje("Error Critico en seguridad");
+
+        monitoreo monitoreoE = new monitoreo();
+        monitoreoE.setId_monitoreo(11L);
+        monitoreoE.setNivel_alerta("Alta");
+        monitoreoE.setMensaje("Error Critico en Monitoreo");
+
+        when(monitoreorepository.save(any(monitoreo.class))).thenReturn(monitoreoE);
+        when(monitoreorepository.existsById(11L)).thenReturn(true);
+        monitoreo resultado = monitoreoservices.GuardarMonitoreo(monitoreoE);
+
+        assertNotNull(resultado);
+        assertEquals(11L, resultado.getId_monitoreo());
+        assertEquals("Alta", resultado.getNivel_alerta());
+        assertEquals("Error Critico en Monitoreo", resultado.getMensaje());
+
+        verify(monitoreorepository, times(1)).save(monitoreoE);
+    }
 
     @Test
-    public void testEliminarEnvio(){
+    public void testEliminarMonitoreo(){
         Long id = 11L;
-        doNothing().when(enviorepository).deleteById(id);
+        doNothing().when(monitoreorepository).deleteById(id);
 
-        enviosservices.Eliminar***(id);
+        monitoreoservices.EliminarMonitoreo(11L);
 
-        verify(enviosrepository.times(1)).deleteById(id);
+        verify(monitoreorepository, times(1)).deleteById(id);
 
     }
-*/
 }
